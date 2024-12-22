@@ -1,49 +1,69 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-	alias(libs.plugins.kotlin.jvm)
-	alias(libs.plugins.kotlin.spring)
-	alias(libs.plugins.spring.boot)
-	alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    jacoco
 }
 
 group = "nl.jaysh"
 version = "0.0.1"
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(23)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation(libs.bundles.coroutines)
-	implementation(libs.bundles.flyway)
-	implementation(libs.bundles.spring)
-	implementation(libs.jackson)
-	implementation(libs.kotlin.reflect)
-	implementation(libs.kotlinx.coroutines.reactor)
-	developmentOnly(libs.spring.boot.devtools)
-	runtimeOnly(libs.bundles.storage)
-	testImplementation(libs.spring.boot.starter.test) {
-		exclude(module = "mockito-core")
-		exclude(module = "mockito-junit-jupiter")
-	}
-	testImplementation(libs.bundles.test)
-	testRuntimeOnly(libs.junit.platform.launcher)
+    implementation(libs.bundles.coroutines)
+    implementation(libs.bundles.flyway)
+    implementation(libs.bundles.spring)
+    implementation(libs.jackson)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.coroutines.reactor)
+    developmentOnly(libs.spring.boot.devtools)
+    runtimeOnly(libs.bundles.storage)
+    testImplementation(libs.spring.boot.starter.test) {
+        exclude(module = "mockito-core")
+        exclude(module = "mockito-junit-jupiter")
+    }
+    testImplementation(libs.bundles.test)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict")
-		jvmTarget = JvmTarget.JVM_23
-	}
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict")
+        jvmTarget = JvmTarget.JVM_23
+    }
+}
+
+jacoco {
+    toolVersion = "0.8.12"
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    finalizedBy("jacocoReport")
+}
+
+task<JacocoReport>("jacocoReport") {
+    dependsOn("test")
+
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        csv.required.set(false)
+    }
+}
+
+tasks.check {
+    dependsOn("jacocoReport")
 }

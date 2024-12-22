@@ -31,3 +31,15 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew test --no-daemon
+
+      - name: Upload Jacoco test report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacocoTestReport
+          path: build/reports/jacoco/test/html
+
+      - name: Set up JUnit Reporter
+        run: |
+          java -jar build/libs/junit-platform-console-standalone-1.9.3.jar --reports-dir=build/test-results/test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
