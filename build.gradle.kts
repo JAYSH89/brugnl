@@ -51,10 +51,10 @@ jacoco {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    finalizedBy("jacocoReport")
+    finalizedBy(tasks.jacocoTestReport)
 }
 
-task<JacocoReport>("jacocoReport") {
+tasks.withType<JacocoReport>() {
     dependsOn("test")
 
     reports {
@@ -62,8 +62,4 @@ task<JacocoReport>("jacocoReport") {
         xml.required.set(true)
         csv.required.set(true)
     }
-}
-
-tasks.check {
-    dependsOn("jacocoReport")
 }

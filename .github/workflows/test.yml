@@ -32,14 +32,12 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew test --no-daemon
 
-      - name: Upload Jacoco test report
-        uses: actions/upload-artifact@v3
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.7.1
         with:
-          name: jacocoReport
-          path: build/reports/tests/test/index.html
-
-      - name: Set up JUnit Reporter
-        run: |
-          java -jar build/libs/junit-platform-console-standalone-1.9.3.jar --reports-dir=build/test-results/test
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          paths: |
+            ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 40
+          min-coverage-changed-files: 60
