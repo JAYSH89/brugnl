@@ -1,0 +1,13 @@
+{
+  "error": {
+    "code": 400,
+    "message": "INVALID_EMAIL",
+    "errors": [
+      {
+        "message": "INVALID_EMAIL",
+        "domain": "global",
+        "reason": "invalid"
+      }
+    ]
+  }
+}
