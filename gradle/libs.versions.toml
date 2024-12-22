@@ -1,0 +1,80 @@
+[versions]
+assertk = "0.28.1"
+coroutines = "1.9.0"
+kotlin = "2.1.0"
+mockk = "1.13.13"
+spring = "3.4.0"
+springMockk = "4.0.2"
+springPlugin = "1.9.25"
+dependencyManagement = "1.1.6"
+
+[libraries]
+# Kotlin
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-reactor = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-reactor", version.ref = "coroutines" }
+reactor-kotlin-extensions = { group = "io.projectreactor.kotlin", name = "reactor-kotlin-extensions" }
+
+# Serialization
+jackson = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin" }
+
+# Spring
+spring-boot-starter-data-r2dbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-r2dbc" }
+spring-boot-starter-webflux = { group = "org.springframework.boot", name = "spring-boot-starter-webflux" }
+spring-boot-devtools = { group = "org.springframework.boot", name = "spring-boot-devtools" }
+spring-jdbc = { group = "org.springframework", name = "spring-jdbc" }
+
+# Storage
+flyway-core = { group = "org.flywaydb", name = "flyway-core" }
+flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }
+
+h2 = { group = "com.h2database", name = "h2" }
+r2dbc-h2 = { group = "io.r2dbc", name = "r2dbc-h2" }
+postgresql = { group = "org.postgresql", name = "postgresql" }
+r2dbc-postgresql = { group = "org.postgresql", name = "r2dbc-postgresql" }
+
+# Testing
+assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher" }
+kotlin-test-junit5 = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+reactor-test = { group = "io.projectreactor", name = "reactor-test" }
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
+spring-mockk = { group = "com.ninja-squad", name = "springmockk", version.ref = "springMockk" }
+
+[bundles]
+coroutines = [
+    "kotlinx-coroutines-core",
+    "kotlinx-coroutines-reactor",
+    "reactor-kotlin-extensions",
+]
+flyway = [
+    "flyway-core",
+    "flyway-database-postgresql",
+]
+spring = [
+    "spring-boot-starter-data-r2dbc",
+    "spring-boot-starter-webflux",
+    "spring-jdbc",
+]
+storage = [
+    "h2",
+    "r2dbc-h2",
+    "postgresql",
+    "r2dbc-postgresql",
+]
+test = [
+    "assertk",
+    "kotlin-test-junit5",
+    "kotlinx-coroutines-test",
+    "mockk",
+    "spring-mockk",
+    "reactor-test",
+]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "springPlugin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "dependencyManagement" }
