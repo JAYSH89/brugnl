@@ -35,8 +35,8 @@ jobs:
       - name: Upload Jacoco test report
         uses: actions/upload-artifact@v3
         with:
-          name: jacocoTestReport
-          path: build/reports/jacoco/test/html
+          name: jacocoReport
+          path: build/reports/tests/test/index.html
 
       - name: Set up JUnit Reporter
         run: |
