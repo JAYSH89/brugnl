@@ -13,6 +13,7 @@ class AuthenticationRoutes(private val authHandler: AuthenticationHandler) {
         "/api/v1/auth".nest {
             POST("/register", authHandler::register)
             POST("/login", authHandler::login)
+            POST("/refresh", authHandler::refresh)
         }
     }
 }

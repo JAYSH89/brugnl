@@ -28,6 +28,7 @@ dependencies {
     implementation(libs.jackson)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlinx.coroutines.reactor)
+    implementation(libs.firebase)
     developmentOnly(libs.spring.boot.devtools)
     runtimeOnly(libs.bundles.storage)
     testImplementation(libs.spring.boot.starter.test) {

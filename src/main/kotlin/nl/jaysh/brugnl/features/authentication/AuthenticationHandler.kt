@@ -12,17 +12,32 @@ import org.springframework.web.reactive.function.server.bodyValueAndAwait
 class AuthenticationHandler(private val service: AuthenticationService) {
     suspend fun register(serverRequest: ServerRequest): ServerResponse {
         val request = serverRequest.awaitBody<AuthenticationRequest>()
-        println("$request")
 
-        val result = mapOf("response" to service.register())
+        val register = service.register(
+            email = request.email,
+            password = request.password,
+        )
+
+        val result = mapOf("response" to register)
         return ServerResponse.ok().bodyValueAndAwait(result)
     }
 
     suspend fun login(serverRequest: ServerRequest): ServerResponse {
         val request = serverRequest.awaitBody<AuthenticationRequest>()
-        println("$request")
 
-        val result = mapOf("response" to service.login())
+        val login = service.login(
+            email = request.email,
+            password = request.password,
+        )
+
+        val result = mapOf("response" to login)
+        return ServerResponse.ok().bodyValueAndAwait(result)
+    }
+
+    suspend fun refresh(serverRequest: ServerRequest): ServerResponse {
+        val refresh = service.refresh(token = "")
+
+        val result = mapOf("response" to refresh)
         return ServerResponse.ok().bodyValueAndAwait(result)
     }
 }

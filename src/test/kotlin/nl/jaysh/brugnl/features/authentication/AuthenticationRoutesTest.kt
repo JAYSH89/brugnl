@@ -25,7 +25,7 @@ class AuthenticationRoutesTest {
 
     @Test
     fun `login valid credential should 200 OK`() = runTest {
-        coEvery { service.login() } returns "login"
+        coEvery { service.login(any(), any()) } returns "login"
 
         webTestClient.post()
             .uri("/api/v1/auth/login")
@@ -36,12 +36,12 @@ class AuthenticationRoutesTest {
             .expectBody()
             .jsonPath("$.response").isEqualTo("login")
 
-        coVerify { service.login() }
+        coVerify { service.login(any(), any()) }
     }
 
     @Test
     fun `register valid credential should 200 OK`() = runTest {
-        coEvery { service.register() } returns "register"
+        coEvery { service.register(any(), any()) } returns "register"
 
         webTestClient.post()
             .uri("/api/v1/auth/register")
@@ -52,6 +52,22 @@ class AuthenticationRoutesTest {
             .expectBody()
             .jsonPath("$.response").isEqualTo("register")
 
-        coVerify { service.register() }
+        coVerify { service.register(any(), any()) }
+    }
+
+    @Test
+    fun `refresh valid credential should 200 OK`() = runTest {
+        coEvery { service.refresh(any()) } returns "refresh"
+
+        webTestClient.post()
+            .uri("/api/v1/auth/refresh")
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(mapOf("token" to "refresh"))
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.response").isEqualTo("refresh")
+
+        coVerify { service.refresh(any()) }
     }
 }
