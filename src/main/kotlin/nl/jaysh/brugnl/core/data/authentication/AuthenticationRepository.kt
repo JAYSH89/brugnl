@@ -1,10 +1,11 @@
 package nl.jaysh.brugnl.core.data.authentication
 
-import com.google.firebase.auth.UserRecord
+import nl.jaysh.brugnl.features.authentication.model.AuthenticationResponse
+import nl.jaysh.brugnl.features.authentication.model.RefreshResponse
 
 interface AuthenticationRepository {
-    fun register(email: String, password: String)
-    fun login(email: String, password: String)
-    fun refresh(token: String)
-    fun logout()
+    suspend fun register(email: String, password: String): AuthenticationResponse
+    suspend fun login(email: String, password: String): AuthenticationResponse
+    suspend fun refresh(refreshToken: String): RefreshResponse
+    suspend fun logout()
 }

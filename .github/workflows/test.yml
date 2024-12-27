@@ -9,6 +9,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+      FIREBASE_BASE_URL: ${{ secrets.IDENTITY_BASE_URL }}
+      TOKEN_BASE_URL: ${{ secrets.TOKEN_BASE_URL }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
