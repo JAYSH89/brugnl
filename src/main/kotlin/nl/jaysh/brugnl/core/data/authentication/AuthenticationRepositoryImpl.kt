@@ -7,6 +7,7 @@ import nl.jaysh.brugnl.core.data.dto.toAuthenticationResponse
 import nl.jaysh.brugnl.core.data.dto.toRefreshResponse
 import nl.jaysh.brugnl.core.data.remote.FirebaseApiImpl
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationResponse
+import nl.jaysh.brugnl.features.authentication.model.AuthenticationToken
 import nl.jaysh.brugnl.features.authentication.model.RefreshResponse
 import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Repository
@@ -38,6 +39,9 @@ class AuthenticationRepositoryImpl(private val firebaseApi: FirebaseApiImpl) : A
 
         return response.toRefreshResponse()
     }
+
+    @Throws(FirebaseAuthException::class)
+    fun verify(idToken: String): AuthenticationToken = firebaseApi.verify(idToken = idToken)
 
     override suspend fun logout() {
         firebaseApi.logout()
