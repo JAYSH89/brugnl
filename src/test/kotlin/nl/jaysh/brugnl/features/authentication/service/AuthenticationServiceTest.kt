@@ -4,7 +4,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import nl.jaysh.brugnl.core.data.authentication.AuthenticationRepository
+import nl.jaysh.brugnl.core.data.repository.AuthenticationRepository
 import nl.jaysh.brugnl.features.helper.AuthenticationHelper.AUTHENTICATION_RESPONSE
 import nl.jaysh.brugnl.features.helper.AuthenticationHelper.REFRESH_RESPONSE
 import org.junit.jupiter.api.BeforeEach
@@ -17,7 +17,7 @@ class AuthenticationServiceTest {
 
     @BeforeEach
     fun setup() {
-        authenticationService = AuthenticationService(authenticationRepository = authenticationRepository)
+        authenticationService = AuthenticationService(repository = authenticationRepository)
     }
 
     @Test
@@ -39,5 +39,15 @@ class AuthenticationServiceTest {
         coEvery { authenticationRepository.refresh(any()) } returns REFRESH_RESPONSE
         authenticationService.refresh(token = "testToken")
         coVerify { authenticationRepository.refresh(any()) }
+    }
+
+    @Test
+    fun `test verify`() {
+        TODO("TODO: TEST VERIFY")
+    }
+
+    @Test
+    fun `test logout`() {
+        TODO("TODO: TEST LOGOUT")
     }
 }
