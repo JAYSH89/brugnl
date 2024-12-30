@@ -40,14 +40,4 @@ class AuthenticationServiceTest {
         authenticationService.refresh(token = "testToken")
         coVerify { authenticationRepository.refresh(any()) }
     }
-
-    @Test
-    fun `test verify`() {
-        TODO("TODO: TEST VERIFY")
-    }
-
-    @Test
-    fun `test logout`() {
-        TODO("TODO: TEST LOGOUT")
-    }
 }
