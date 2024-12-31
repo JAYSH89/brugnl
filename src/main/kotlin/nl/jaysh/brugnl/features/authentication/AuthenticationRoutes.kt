@@ -10,9 +10,10 @@ import org.springframework.web.reactive.function.server.coRouter
 class AuthenticationRoutes(private val authHandler: AuthenticationHandler) {
     @Bean
     fun authenticationRouter(): RouterFunction<ServerResponse> = coRouter {
-        "api/v1/auth".nest {
+        "/api/v1/auth".nest {
             POST("/register", authHandler::register)
             POST("/login", authHandler::login)
+            POST("/refresh", authHandler::refresh)
         }
     }
 }

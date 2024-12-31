@@ -1,0 +1,8 @@
+{
+  "kind": "identitytoolkit#SignupNewUserResponse",
+  "idToken": "idToken",
+  "email": "test@example.com",
+  "refreshToken": "refreshToken",
+  "expiresIn": "3600",
+  "localId": "localId"
+}

@@ -1,0 +1,9 @@
+{
+  "access_token": "accessToken",
+  "expires_in": "3600",
+  "token_type": "Bearer",
+  "refresh_token": "refreshToken",
+  "id_token": "idToken",
+  "user_id": "userId",
+  "project_id": "projectId"
+}
