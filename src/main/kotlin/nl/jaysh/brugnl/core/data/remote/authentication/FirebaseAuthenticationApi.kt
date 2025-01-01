@@ -1,9 +1,10 @@
-package nl.jaysh.brugnl.core.data.remote
+package nl.jaysh.brugnl.core.data.remote.authentication
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import nl.jaysh.brugnl.core.config.ApiConfig
 import nl.jaysh.brugnl.core.data.dto.*
+import nl.jaysh.brugnl.core.data.dto.firebase.*
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationResponse
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationToken
 import nl.jaysh.brugnl.features.authentication.model.RefreshResponse

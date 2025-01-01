@@ -1,4 +1,4 @@
-package nl.jaysh.brugnl.core.data.remote
+package nl.jaysh.brugnl.core.data.remote.authentication
 
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationResponse
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationToken

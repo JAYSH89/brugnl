@@ -1,4 +1,4 @@
-package nl.jaysh.brugnl.core.data.dto
+package nl.jaysh.brugnl.core.data.dto.firebase
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

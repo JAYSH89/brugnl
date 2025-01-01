@@ -1,7 +1,7 @@
 package nl.jaysh.brugnl.core.data.repository
 
 import com.google.firebase.auth.FirebaseAuthException
-import nl.jaysh.brugnl.core.data.remote.AuthenticationApi
+import nl.jaysh.brugnl.core.data.remote.authentication.AuthenticationApi
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationResponse
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationToken
 import nl.jaysh.brugnl.features.authentication.model.RefreshResponse

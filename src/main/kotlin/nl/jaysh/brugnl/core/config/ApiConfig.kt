@@ -8,4 +8,5 @@ class ApiConfig(private val environment: Environment) {
     val apiKey: String = System.getenv("API_KEY")
     val firebaseBaseUrl: String = System.getenv("FIREBASE_BASE_URL")
     val tokenBaseUrl: String = System.getenv("TOKEN_BASE_URL")
+    val ndwBaseUrl: String = System.getenv("NDW_BASE_URL")
 }
