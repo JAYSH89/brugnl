@@ -1,6 +1,7 @@
 package nl.jaysh.brugnl.core.data.remote
 
 import kotlinx.coroutines.test.runTest
+import nl.jaysh.brugnl.core.data.remote.authentication.InMemoryAuthenticationApi
 import nl.jaysh.brugnl.features.helper.AuthenticationHelper.AUTHENTICATION_RESPONSE
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

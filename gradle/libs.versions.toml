@@ -1,7 +1,9 @@
 [versions]
 assertk = "0.28.1"
 coroutines = "1.9.0"
+exposed = "0.57.0"
 firebase = "9.4.2"
+h2 = "2.3.232"
 kotlin = "2.1.0"
 mockk = "1.13.13"
 spring = "3.4.0"
@@ -23,16 +25,21 @@ firebase = { group = "com.google.firebase", name = "firebase-admin", version.ref
 jackson = { group = "com.fasterxml.jackson.module", name = "jackson-module-kotlin" }
 
 # Spring
-spring-boot-starter-data-r2dbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-r2dbc" }
-spring-boot-starter-webflux = { group = "org.springframework.boot", name = "spring-boot-starter-webflux" }
+spring-boot-starter-data-jdbc = { group = "org.springframework.boot", name = "spring-boot-starter-data-jdbc" }
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
 spring-boot-devtools = { group = "org.springframework.boot", name = "spring-boot-devtools" }
 spring-jdbc = { group = "org.springframework", name = "spring-jdbc" }
 
 # Storage
 flyway-core = { group = "org.flywaydb", name = "flyway-core" }
 flyway-database-postgresql = { group = "org.flywaydb", name = "flyway-database-postgresql" }
+exposed-spring-boot-starter = { group = "org.jetbrains.exposed", name = "exposed-spring-boot-starter", version.ref = "exposed" }
+exposed-java-time = { group = "org.jetbrains.exposed", name = "exposed-java-time", version.ref = "exposed" }
+exposed-dao = { group = "org.jetbrains.exposed", name = "exposed-dao", version.ref = "exposed" }
+exposed-migration = { group = "org.jetbrains.exposed", name = "exposed-migration", version.ref = "exposed" }
+exposed-crypt = { group = "org.jetbrains.exposed", name = "exposed-crypt", version.ref = "exposed" }
 
-h2 = { group = "com.h2database", name = "h2" }
+h2 = { group = "com.h2database", name = "h2", version.ref = "h2" }
 r2dbc-h2 = { group = "io.r2dbc", name = "r2dbc-h2" }
 postgresql = { group = "org.postgresql", name = "postgresql" }
 r2dbc-postgresql = { group = "org.postgresql", name = "r2dbc-postgresql" }
@@ -53,13 +60,20 @@ coroutines = [
     "kotlinx-coroutines-reactor",
     "reactor-kotlin-extensions",
 ]
+exposed = [
+    "exposed-spring-boot-starter",
+    "exposed-java-time",
+    "exposed-dao",
+    "exposed-migration",
+    "exposed-crypt",
+]
 flyway = [
     "flyway-core",
     "flyway-database-postgresql",
 ]
 spring = [
-    "spring-boot-starter-data-r2dbc",
-    "spring-boot-starter-webflux",
+    "spring-boot-starter-data-jdbc",
+    "spring-boot-starter-web",
     "spring-jdbc",
 ]
 storage = [

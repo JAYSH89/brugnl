@@ -13,6 +13,7 @@ jobs:
       API_KEY: ${{ secrets.FIREBASE_API_KEY }}
       FIREBASE_BASE_URL: ${{ secrets.IDENTITY_BASE_URL }}
       TOKEN_BASE_URL: ${{ secrets.TOKEN_BASE_URL }}
+      NDW_BASE_URL: ${{ secrets.NDW_BASE_URL }}
 
     steps:
       - name: Checkout code

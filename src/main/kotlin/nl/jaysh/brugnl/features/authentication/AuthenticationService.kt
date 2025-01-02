@@ -1,4 +1,4 @@
-package nl.jaysh.brugnl.features.authentication.service
+package nl.jaysh.brugnl.features.authentication
 
 import com.google.firebase.auth.FirebaseAuthException
 import nl.jaysh.brugnl.core.data.repository.AuthenticationRepository
@@ -12,17 +12,17 @@ import java.net.URISyntaxException
 class AuthenticationService(private val repository: AuthenticationRepository) {
 
     @Throws(URISyntaxException::class)
-    suspend fun register(email: String, password: String): AuthenticationResponse {
+    fun register(email: String, password: String): AuthenticationResponse {
         return repository.register(email, password)
     }
 
     @Throws(URISyntaxException::class)
-    suspend fun login(email: String, password: String): AuthenticationResponse {
+    fun login(email: String, password: String): AuthenticationResponse {
         return repository.login(email, password)
     }
 
     @Throws(URISyntaxException::class)
-    suspend fun refresh(token: String): RefreshResponse {
+    fun refresh(token: String): RefreshResponse {
         return repository.refresh(token)
     }
 
@@ -31,7 +31,7 @@ class AuthenticationService(private val repository: AuthenticationRepository) {
         return repository.verify(idToken)
     }
 
-    suspend fun logout() {
+    fun logout() {
         repository.logout()
     }
 }
