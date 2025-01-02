@@ -33,7 +33,7 @@ class InMemoryAuthenticationApi : AuthenticationApi {
     )
 
     @Throws(IllegalArgumentException::class)
-    override suspend fun register(email: String, password: String): AuthenticationResponse {
+    override fun register(email: String, password: String): AuthenticationResponse {
         val savedUser = inMemoryUsers.find { it.email == email }
 
         if (savedUser == null) {
@@ -47,7 +47,7 @@ class InMemoryAuthenticationApi : AuthenticationApi {
     }
 
     @Throws(IllegalArgumentException::class)
-    override suspend fun login(email: String, password: String): AuthenticationResponse {
+    override fun login(email: String, password: String): AuthenticationResponse {
         val savedUser = inMemoryUsers.find { it.email == email }
         if (savedUser == null) throw IllegalArgumentException("user does not exists")
 
@@ -58,7 +58,7 @@ class InMemoryAuthenticationApi : AuthenticationApi {
         }
     }
 
-    override suspend fun refreshToken(refreshToken: String): RefreshResponse {
+    override fun refreshToken(refreshToken: String): RefreshResponse {
         return refreshResponse
     }
 
@@ -66,7 +66,7 @@ class InMemoryAuthenticationApi : AuthenticationApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun logout() {
+    override fun logout() {
         TODO("Not yet implemented")
     }
 }

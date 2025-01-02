@@ -1,25 +1,38 @@
 package nl.jaysh.brugnl.core.data.repository
 
+import nl.jaysh.brugnl.core.data.local.entity.BridgeDao
+import nl.jaysh.brugnl.core.data.local.entity.toBridge
 import nl.jaysh.brugnl.core.data.remote.ndw.NDWApi
+import nl.jaysh.brugnl.core.model.FetchType
 import nl.jaysh.brugnl.core.model.bridge.Bridge
 import org.springframework.stereotype.Repository
+import java.time.LocalDate
 
 @Repository
-class BridgeRepository(private val ndw: NDWApi) {
+class BridgeRepository(private val dao: BridgeDao, private val ndw: NDWApi) {
 
-    // Return bridges from DB (no refresh)
-    suspend fun getAllBridges(): List<Bridge> {
-        return refreshBridges()
+    fun getAllBridges(): List<Bridge> = dao.findAll()
+        .map { entity -> entity.toBridge() }
+
+    fun getBridgesByCity(city: String): List<Bridge> = dao.findByCity(city = city)
+        .map { entity -> entity.toBridge() }
+
+    fun refreshBridges(fetchType: FetchType): List<Bridge> {
+        val bridges = ndw.fetchBridges()
+        return saveBridges(bridges = bridges, fetchType = fetchType)
     }
 
-    // Add param to indicate refresh from cron or manual
-    suspend fun refreshBridges(): List<Bridge> {
-        // Fetch remote bridges
+    fun saveBridges(bridges: List<Bridge>, fetchType: FetchType): List<Bridge> {
+        return dao.saveAll(bridges = bridges, type = fetchType).map { it.toBridge() }
+    }
 
-        // Save remote bridges in DB with datetime + indication who started fetch
+    fun deleteBridges(date: LocalDate): Boolean {
+        val result = dao.deleteByDate(date = date)
+        return result > 0
+    }
 
-        // Return the saved bridges from DB
-
-        return ndw.fetchBridges()
+    fun deleteBridge(bridge: Bridge): Boolean {
+        val result = dao.delete(bridge = bridge)
+        return result > 0
     }
 }

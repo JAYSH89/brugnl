@@ -1,6 +1,10 @@
 package nl.jaysh.brugnl.core.model.bridge
 
+import java.time.LocalDateTime
+import java.util.*
+
 data class Bridge(
+    val id: UUID?,
     val locationId: String,
     val isrs: String,
     val viId: Int,
@@ -20,4 +24,6 @@ data class Bridge(
     val isActive: Boolean,
     val validFrom: String,
     val validUntil: String?,
+    val createdAt: LocalDateTime?,
+    val updatedAt: LocalDateTime?,
 )

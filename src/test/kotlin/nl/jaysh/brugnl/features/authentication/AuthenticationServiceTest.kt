@@ -1,8 +1,6 @@
-package nl.jaysh.brugnl.features.authentication.service
+package nl.jaysh.brugnl.features.authentication
 
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
+import io.mockk.*
 import kotlinx.coroutines.test.runTest
 import nl.jaysh.brugnl.core.data.repository.AuthenticationRepository
 import nl.jaysh.brugnl.features.helper.AuthenticationHelper.AUTHENTICATION_RESPONSE
@@ -22,22 +20,22 @@ class AuthenticationServiceTest {
 
     @Test
     fun `test register user`() = runTest {
-        coEvery { authenticationRepository.register(email = any(), password = any()) } returns AUTHENTICATION_RESPONSE
+        every { authenticationRepository.register(email = any(), password = any()) } returns AUTHENTICATION_RESPONSE
         authenticationService.register(email = "test@example.com", password = "testPass123$")
-        coVerify { authenticationRepository.register(any(), any()) }
+        verify { authenticationRepository.register(any(), any()) }
     }
 
     @Test
     fun `test login user`() = runTest {
-        coEvery { authenticationRepository.login(email = any(), password = any()) } returns AUTHENTICATION_RESPONSE
+        every { authenticationRepository.login(email = any(), password = any()) } returns AUTHENTICATION_RESPONSE
         authenticationService.login(email = "test@example.com", password = "testPass123$")
-        coVerify { authenticationRepository.login(any(), any()) }
+        verify { authenticationRepository.login(any(), any()) }
     }
 
     @Test
     fun `test refresh token`() = runTest {
-        coEvery { authenticationRepository.refresh(any()) } returns REFRESH_RESPONSE
+        every { authenticationRepository.refresh(any()) } returns REFRESH_RESPONSE
         authenticationService.refresh(token = "testToken")
-        coVerify { authenticationRepository.refresh(any()) }
+        verify { authenticationRepository.refresh(any()) }
     }
 }

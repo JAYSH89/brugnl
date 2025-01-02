@@ -5,9 +5,9 @@ import nl.jaysh.brugnl.features.authentication.model.AuthenticationToken
 import nl.jaysh.brugnl.features.authentication.model.RefreshResponse
 
 interface AuthenticationApi {
-    suspend fun register(email: String, password: String): AuthenticationResponse
-    suspend fun login(email: String, password: String): AuthenticationResponse
-    suspend fun refreshToken(refreshToken: String): RefreshResponse
+    fun register(email: String, password: String): AuthenticationResponse
+    fun login(email: String, password: String): AuthenticationResponse
+    fun refreshToken(refreshToken: String): RefreshResponse
     fun verify(idToken: String): AuthenticationToken
-    suspend fun logout()
+    fun logout()
 }

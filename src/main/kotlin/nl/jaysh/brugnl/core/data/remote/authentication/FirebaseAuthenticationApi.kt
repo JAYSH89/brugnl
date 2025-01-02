@@ -9,10 +9,12 @@ import nl.jaysh.brugnl.features.authentication.model.AuthenticationResponse
 import nl.jaysh.brugnl.features.authentication.model.AuthenticationToken
 import nl.jaysh.brugnl.features.authentication.model.RefreshResponse
 import org.springframework.context.annotation.Primary
+import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpMethod
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component
-import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.awaitBody
+import org.springframework.web.client.RestTemplate
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URISyntaxException
 
@@ -20,12 +22,14 @@ import java.net.URISyntaxException
 @Primary
 class FirebaseAuthenticationApi(
     private val firebase: FirebaseAuth,
-    private val webClient: WebClient,
+    private val restTemplate: RestTemplate,
     private val apiConfig: ApiConfig,
 ) : AuthenticationApi {
 
     @Throws(URISyntaxException::class)
-    override suspend fun register(email: String, password: String): AuthenticationResponse {
+    override fun register(email: String, password: String): AuthenticationResponse {
+        val headers = HttpHeaders().apply { contentType = MediaType.APPLICATION_JSON }
+
         val request = FirebaseAuthenticationRequestDTO(email = email, password = password)
         val path = "/accounts:signUp"
         val url = apiConfig.firebaseBaseUrl + path
@@ -36,18 +40,21 @@ class FirebaseAuthenticationApi(
             .build()
             .toUri()
 
-        val response = webClient.post()
-            .uri(uri)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(request)
-            .retrieve()
-            .awaitBody<FirebaseAuthenticationResponseDTO>()
 
-        return response.toAuthenticationResponse()
+        val authenticationResponse = restTemplate.exchange(
+            uri,
+            HttpMethod.POST,
+            HttpEntity(request, headers),
+            FirebaseAuthenticationResponseDTO::class.java,
+        ).body
+
+        requireNotNull(authenticationResponse)
+        return authenticationResponse.toAuthenticationResponse()
     }
 
     @Throws(URISyntaxException::class)
-    override suspend fun login(email: String, password: String): AuthenticationResponse {
+    override fun login(email: String, password: String): AuthenticationResponse {
+        val headers = HttpHeaders().apply { contentType = MediaType.APPLICATION_JSON }
         val request = FirebaseAuthenticationRequestDTO(email = email, password = password)
         val path = "/accounts:signInWithPassword"
         val url = apiConfig.firebaseBaseUrl + path
@@ -58,14 +65,16 @@ class FirebaseAuthenticationApi(
             .build()
             .toUri()
 
-        val response = webClient.post()
-            .uri(uri)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(request)
-            .retrieve()
-            .awaitBody<FirebaseAuthenticationResponseDTO>()
+        val authenticationResponse = restTemplate.exchange(
+            uri,
+            HttpMethod.POST,
+            HttpEntity(request, headers),
+            FirebaseAuthenticationResponseDTO::class.java,
+        ).body
 
-        return response.toAuthenticationResponse()
+        requireNotNull(authenticationResponse)
+
+        return authenticationResponse.toAuthenticationResponse()
     }
 
     @Throws(FirebaseAuthException::class)
@@ -84,7 +93,8 @@ class FirebaseAuthenticationApi(
     }
 
     @Throws(URISyntaxException::class)
-    override suspend fun refreshToken(refreshToken: String): RefreshResponse {
+    override fun refreshToken(refreshToken: String): RefreshResponse {
+        val headers = HttpHeaders().apply { contentType = MediaType.APPLICATION_JSON }
         val request = FirebaseRefreshRequestDTO(refreshToken = refreshToken)
         val path = "/token"
         val url = apiConfig.tokenBaseUrl + path
@@ -95,15 +105,17 @@ class FirebaseAuthenticationApi(
             .build()
             .toUri()
 
-        val response = webClient.post()
-            .uri(uri)
-            .contentType(MediaType.APPLICATION_JSON)
-            .bodyValue(request)
-            .retrieve()
-            .awaitBody<FirebaseRefreshResponseDTO>()
+        val refreshResponse = restTemplate.exchange(
+            uri,
+            HttpMethod.POST,
+            HttpEntity(request, headers),
+            FirebaseRefreshResponseDTO::class.java,
+        ).body
 
-        return response.toRefreshResponse()
+        requireNotNull(refreshResponse)
+
+        return refreshResponse.toRefreshResponse()
     }
 
-    override suspend fun logout() = TODO()
+    override fun logout() = TODO()
 }

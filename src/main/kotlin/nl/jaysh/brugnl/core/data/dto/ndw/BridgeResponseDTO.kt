@@ -26,6 +26,7 @@ data class BridgeResponseDTO(
 )
 
 fun BridgeResponseDTO.toBridge(): Bridge = Bridge(
+    id = null,
     locationId = this.locationId,
     isrs = this.isrs,
     viId = this.viId,
@@ -45,4 +46,6 @@ fun BridgeResponseDTO.toBridge(): Bridge = Bridge(
     isActive = this.isActive,
     validFrom = this.validFrom,
     validUntil = this.validUntil,
+    createdAt = null,
+    updatedAt = null,
 )

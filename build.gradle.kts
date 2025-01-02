@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
     implementation(libs.bundles.coroutines)
+    implementation(libs.bundles.exposed)
     implementation(libs.bundles.flyway)
     implementation(libs.bundles.spring)
     implementation(libs.jackson)

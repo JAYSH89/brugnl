@@ -5,8 +5,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class InMemoryNDWApi : NDWApi {
-
-    override suspend fun fetchBridges(): List<Bridge> {
-        TODO("Not yet implemented")
-    }
+    override fun fetchBridges(): List<Bridge> = TODO("Not yet implemented")
 }
